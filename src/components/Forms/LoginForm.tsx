@@ -1,65 +1,41 @@
 "use client";
 
-import { registrationSchema } from "@/Schemas/validationSchema";
+import { loginSchema } from "@/Schemas/validationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-interface IRegistration {
-  name: string;
+interface ILogin {
   email: string;
   password: string;
 }
 
-const RegistrationForm = () => {
-  const {reset,
+const LoginForm = () => {
+  const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IRegistration>({ resolver: yupResolver(registrationSchema) });
+  } = useForm<ILogin>({ resolver: yupResolver(loginSchema) });
 
-  const onSubmit = (data: IRegistration) => {
+  const onSubmit = (data: ILogin) => {
     console.log("Data from", data);
-    reset()
+    reset();
   };
 
   return (
     <>
-      <div className="flex items-center justify-center ">
+      <div className="flex items-center justify-center">
         <div className="h-[780px] w-[536px]">
           <h3 className="mb-14 text-center text-[40px] font-extrabold text-[#151515]">
-            Sign Up
+            Login
           </h3>
           <form
             onSubmit={handleSubmit(onSubmit)}
             action="
       "
           >
-            <div className="mb-6">
-              <label
-                className="mb-4 text-xl font-semibold text-[#444444]"
-                htmlFor=""
-              >
-                Name
-              </label>
-              <input
-                style={{
-                  border: "1px solid rgb(208, 208, 208)",
-                  borderRadius: "8px",
-                }}
-                className="bg-#FFFFFF w-full rounded-lg p-6 text-[#A1A1A1] outline-none"
-                placeholder="Enter your name"
-                type="text"
-                id="name"
-                {...register("name")}
-              />
-              {errors.name && (
-                <p className="text-xs text-red-600">
-                  <small>{errors?.name?.message}</small>
-                </p>
-              )}
-            </div>
             <div className="mb-6">
               <label
                 className="mb-4 text-xl font-semibold text-[#444444]"
@@ -115,11 +91,11 @@ const RegistrationForm = () => {
             />
           </form>
           <h4 className="mt-8 text-center text-xl font-medium text-[#D1A054]">
-            Already registered?
+            New here?
             <span>
               {" "}
-              <Link className="font-extrabold" href="/login">
-                Go to log in
+              <Link className="font-extrabold" href="/signup">
+                Create a new account
               </Link>
             </span>
           </h4>
@@ -132,4 +108,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default LoginForm;
